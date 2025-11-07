@@ -6,6 +6,33 @@ class BookhavenApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Homepage();
+    return MaterialApp(
+      home: Homepage(),
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
+        //primaryColor: Colors.orange,
+        iconTheme: IconThemeData(color: Colors.orange),
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.orange,
+          centerTitle: false,
+          titleTextStyle: TextStyle(
+            fontSize: 20,
+            letterSpacing: -1
+          ),
+        ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            foregroundColor: Colors.black,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)))
+        ),
+        textTheme: TextTheme(
+          headlineMedium: TextStyle(
+            fontWeight: FontWeight.bold,
+            letterSpacing: -1
+          )
+        )
+      ),
+    );
   }
 }

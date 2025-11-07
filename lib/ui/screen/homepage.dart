@@ -1,14 +1,85 @@
+import 'dart:ui' as ui;
+
+import 'package:bookhaven/ui/widgets/bookhaven_bar.dart';
+import 'package:bookhaven/ui/widgets/homepage_content.dart';
 import 'package:flutter/material.dart';
 
 class Homepage extends StatelessWidget {
-  const Homepage({super.key});
+  Homepage({super.key});
+
+  var imageURLs = List.generate(10, (i) => 'https://covers.openlibrary.org/b/id/240727-L.jpg');
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Column(
-        
+      appBar: BookhavenBar(),
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.fromLTRB(20,60,20,20),
+          //margin: EdgeInsets.all(10),
+          child: Column(
+            spacing: 20,
+            children: [
+              HomepageContent(),
+              SizedBox(height: 60),
+              Row(
+                spacing: 4.0,
+                children: [
+                Icon(Icons.trending_up),
+                Text('Featured Books',style: Theme.of(context).textTheme.headlineMedium),
+                ]
+              ),
+              GridView.builder(
+                clipBehavior: Clip.hardEdge,
+                padding: EdgeInsets.zero,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(), //Stops 
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.5,
+                  mainAxisSpacing: 5,
+                  crossAxisSpacing: 5
+                ),
+                itemCount: imageURLs.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    height: double.infinity,
+                    width: double.infinity,
+                    child: Card(
+                      clipBehavior: Clip.hardEdge,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: 260,
+                            width: double.infinity,
+                            child: Image.network(
+                              fit: BoxFit.fill,
+                              imageURLs[index],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Title',style: TextStyle(fontWeight: FontWeight.bold,letterSpacing: -1),),
+                                Text('Author',style: TextStyle(letterSpacing: -1,color: Colors.black54,fontWeight: FontWeight.w500),),
+                                Row(children: [Icon(Icons.star,size: 14,), SizedBox(width: 2) ,Text('0.0'), Spacer(),Container(decoration: BoxDecoration(), child: Text('Genre'))]),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
