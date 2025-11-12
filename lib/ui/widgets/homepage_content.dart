@@ -32,7 +32,7 @@ class HomepageContent extends StatelessWidget {
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w500,
-            color: Colors.brown,
+            color: Color(0xff6D6159),
             letterSpacing: -1
             //foreground: Paint()..shader = ui.Gradient.linear(Offset(0, 0), Offset(400, 0), [Colors.orange,Colors.blue])
           ),
@@ -45,7 +45,7 @@ class HomepageContent extends StatelessWidget {
           label: Text('Browse Books'),
           style: TextButton.styleFrom(
             foregroundColor: Colors.white,
-            backgroundColor: Colors.orange,
+            backgroundColor: Color(0xFFF08D2D),
             minimumSize: Size(double.infinity,40)
           ),
         ),

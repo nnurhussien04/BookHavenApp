@@ -20,16 +20,24 @@ class _BookhavenBarState extends State<BookhavenBar>{
     // TODO: implement build
     return AppBar(
       backgroundColor: Colors.transparent,
+      elevation: 0,
+      shape: Border.symmetric(horizontal: BorderSide(width: 1.0,color: Color(0xFFE6DFD6))),
+      //surfaceTintColor: Colors.transparent,
       title: Row(
         spacing: 2,
         children: [
-          Icon(Icons.book_outlined),
-          Text(
-            'BookHaven',
-            style: TextStyle(
-              fontWeight: FontWeight.bold, 
-              foreground: Paint()..shader = ui.Gradient.linear(Offset(0, 0), Offset(230, 0), [Colors.orange,Colors.blue])
+          Icon(Icons.menu_book_outlined),
+          InkWell(
+            child: Text(
+              'BookHaven',
+              style: TextStyle(
+                fontWeight: FontWeight.bold, 
+                foreground: Paint()..shader = ui.Gradient.linear(Offset(0, 0), Offset(175, 0), [Colors.orange,Colors.blue])
+              ),
             ),
+            onTap: () {
+              print('Tapped');
+            },
           )
         ],
       ),
