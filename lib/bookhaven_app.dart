@@ -1,5 +1,6 @@
 import 'package:bookhaven/ui/screen/browse_page.dart';
 import 'package:bookhaven/ui/screen/homepage.dart';
+import 'package:bookhaven/ui/screen/login.dart';
 import 'package:flutter/material.dart';
 
 class BookhavenApp extends StatelessWidget {
@@ -8,7 +9,7 @@ class BookhavenApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: BrowsePage(),
+      home: LoginPage(),
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
         //primaryColor: Colors.orange,
@@ -37,8 +38,9 @@ class BookhavenApp extends StatelessWidget {
           headlineSmall: TextStyle(
             fontWeight: FontWeight.bold
           )
-          
-        )
+        ),
+        toggleButtonsTheme: ToggleButtonsThemeData(
+          fillColor: Colors.white       )
       ),
     );
   }
