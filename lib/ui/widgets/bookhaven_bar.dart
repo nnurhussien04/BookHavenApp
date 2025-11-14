@@ -1,3 +1,6 @@
+import 'package:bookhaven/ui/screen/browse_page.dart';
+import 'package:bookhaven/ui/screen/homepage.dart';
+import 'package:bookhaven/ui/screen/login.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
@@ -36,7 +39,8 @@ class _BookhavenBarState extends State<BookhavenBar>{
               ),
             ),
             onTap: () {
-              print('Tapped');
+              Navigator.of(context).pop();
+              Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => Homepage()));
             },
           )
         ],
@@ -47,14 +51,20 @@ class _BookhavenBarState extends State<BookhavenBar>{
           child: Row(
             children: [
               TextButton(
-                onPressed: (){}, 
+                onPressed: (){
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => BrowsePage()));                      
+                }, 
                 child: Text('Browse'),
               ),
               SizedBox(width: 5),
               TextButton.icon(
-                onPressed: (){}, 
+                onPressed: (){
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => LoginPage()));
+                }, 
                 style: TextButton.styleFrom(
-                  backgroundColor: Colors.orange,
+                  backgroundColor: Color(0xFFF08D2D),
                   foregroundColor: Colors.white,
                   //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
                 ),

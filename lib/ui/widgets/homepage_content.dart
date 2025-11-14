@@ -1,3 +1,5 @@
+import 'package:bookhaven/ui/screen/browse_page.dart';
+import 'package:bookhaven/ui/screen/login.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
@@ -40,7 +42,10 @@ class HomepageContent extends StatelessWidget {
         ),
         SizedBox(height: 20),
         TextButton.icon(
-          onPressed: (){}, 
+          onPressed: (){
+            Navigator.of(context).pop();
+            Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => BrowsePage()));
+          }, 
           icon: Icon(Icons.menu_book_outlined),
           label: Text('Browse Books'),
           style: TextButton.styleFrom(
@@ -50,7 +55,10 @@ class HomepageContent extends StatelessWidget {
           ),
         ),
         TextButton(
-          onPressed: (){},
+          onPressed: (){            
+            Navigator.of(context).pop();
+            Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => LoginPage()));
+          },
           style: TextButton.styleFrom(minimumSize: Size(double.infinity,40)),
           child: Text('Get Started'))
       ],

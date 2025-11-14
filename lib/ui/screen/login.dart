@@ -1,3 +1,5 @@
+import 'package:bookhaven/ui/widgets/input_field.dart';
+import 'package:bookhaven/ui/widgets/toggle_button.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -43,122 +45,31 @@ class _LoginPageState extends State<LoginPage> {
                     spacing: 10,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 2),
-                        height: 40,
-                        //width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                          color: Color(0XFFEBE5DD),
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            width: 1.0,
-                            color: Color(0xFFE6DFD6)
-                          )
-                        ),
-                        //padding: EdgeInsets.all(8),
-                        child: ToggleButtons(
-                          isSelected: _toggleValues,
-                          borderRadius: BorderRadius.circular(10),
-                          borderColor: Colors.transparent,
-                          constraints: BoxConstraints.tight(Size(170, 30)),
-                          selectedColor: Colors.black,
-                          onPressed: (index){
+                      ToggleContainer(
+                        toggleValues: _toggleValues, 
+                        onPressedFunction: (index){
                             setState(() {
                               for(int i = 0;i<_toggleValues.length;i++){
                                 _toggleValues[i] = i == index;
                               }
                               _signUp = !_signUp;
                             });
-                          },
-                          //borderColor: ,
-                          // selectedColor: Colors.black,
-                          // selectedBorderColor: Theme.of(context).primaryColor,
-                          children: [
-                            Text('Sign In',style: TextStyle(fontWeight: FontWeight.w600,letterSpacing: -1)),
-                            Text('Sign Up',style: TextStyle(fontWeight: FontWeight.w600,letterSpacing: -1),)
-                          ],
-                        ) 
-                      ),
+                          }),
                       if(_signUp)
-                        Column(
-                          spacing: 10,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 4.0),
-                              child: Text('Full Name',style: TextStyle(fontWeight: FontWeight.w600,letterSpacing: -1),),
-                            ),
-                            Container(
-                              clipBehavior: Clip.hardEdge,
-                              decoration: BoxDecoration(
-                                color: Color(0XFFFFFBF5),
-                                border: Border.all(
-                                  color: Color(0xFFE6DFD6),
-                                  width: 1.0
-                                ),
-                                borderRadius: BorderRadius.circular(10)
-                              ),
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  contentPadding: EdgeInsets.fromLTRB(15,0,0,12),
-                                  border: InputBorder.none,
-                                  hintText: 'John Doe',
-                                  hintStyle: TextStyle(letterSpacing: -1,),
-                                  constraints: BoxConstraints.tight(Size(double.infinity, 38))
-                                ),
-                              ),
-                            ),
-                          ],
+                        InputField(
+                          fieldName: 'Full Name',
+                          hintText: 'John Doe',
+                          controller: TextEditingController(),
                         ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 4.0),
-                        child: Text('Email',style: TextStyle(fontWeight: FontWeight.w600,letterSpacing: -1),),
+                      InputField(
+                        fieldName: 'Email', 
+                        hintText: 'you@example.com',
+                        controller: TextEditingController()
                       ),
-                      Container(
-                        clipBehavior: Clip.hardEdge,
-                        decoration: BoxDecoration(
-                          color: Color(0XFFFFFBF5),
-                          border: Border.all(
-                            color: Color(0xFFE6DFD6),
-                            width: 1.0
-                          ),
-                          borderRadius: BorderRadius.circular(10)
-                        ),
-                        child: TextField(
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.fromLTRB(15,0,0,12),
-                            border: InputBorder.none,
-                            hintText: 'you@example.com',
-                            hintStyle: TextStyle(letterSpacing: -1),
-                            constraints: BoxConstraints.tight(Size(double.infinity, 38))
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 4.0),
-                        child: Text('Password',style: TextStyle(fontWeight: FontWeight.w600,letterSpacing: -1),),
-                      ),
-                      Container(
-                        clipBehavior: Clip.hardEdge,
-                        decoration: BoxDecoration(
-                          color: Color(0XFFFFFBF5),
-                          border: Border.all(
-                            color: Color(0xFFE6DFD6),
-                            width: 1.0
-                          ),
-                          borderRadius: BorderRadius.circular(10)
-                        ),
-                        child: TextField(
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.fromLTRB(15,0,0,12),
-                            border: InputBorder.none,
-                            hintText: '•••••••',
-                            hintStyle: TextStyle(letterSpacing: -1,),
-                            constraints: BoxConstraints.tight(Size(double.infinity, 38))
-                          ),
-                        ),
-                      ),
+                      InputField(
+                        fieldName: 'Password', 
+                        hintText: '•••••••', 
+                        controller: TextEditingController()),
                       TextButton(
                         onPressed: (){}, 
                         child: Text(_signUp ? 'Sign Up' :'Sign In'),
