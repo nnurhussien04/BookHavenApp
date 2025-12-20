@@ -83,4 +83,5 @@ class DefaultFirebaseOptions {
     authDomain: 'bookappauth-b507e.firebaseapp.com',
     storageBucket: 'bookappauth-b507e.firebasestorage.app',
   );
+
 }

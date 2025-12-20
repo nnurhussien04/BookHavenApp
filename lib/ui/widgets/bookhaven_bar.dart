@@ -22,6 +22,7 @@ class _BookhavenBarState extends State<BookhavenBar>{
   Widget build(BuildContext context) {
     // TODO: implement build
     return AppBar(
+      automaticallyImplyLeading: false,
       backgroundColor: Colors.transparent,
       elevation: 0,
       shape: Border.symmetric(horizontal: BorderSide(width: 1.0,color: Color(0xFFE6DFD6))),

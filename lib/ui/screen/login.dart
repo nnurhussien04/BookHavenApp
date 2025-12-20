@@ -1,5 +1,6 @@
 import 'package:bookhaven/ui/widgets/input_field.dart';
 import 'package:bookhaven/ui/widgets/toggle_button.dart';
+import 'package:bookhaven/viewmodel/login_viewmodel.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -12,6 +13,19 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   var _toggleValues = [true,false];
   var _signUp = false;
+  late LoginViewModel _viewModel;
+  late TextEditingController _emailController;
+  late TextEditingController _passwordController;
+
+  @override
+  void initState() {
+    super.initState();
+    _viewModel = LoginViewModel();
+    _emailController = TextEditingController();
+    _passwordController = TextEditingController();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +35,7 @@ class _LoginPageState extends State<LoginPage> {
         child: Center(
           child: Container(
             width: double.infinity,
-            height: _signUp ? MediaQuery.of(context).size.height/1.675 : MediaQuery.of(context).size.height/2,
+            height: _signUp ? 520 : 440,
             decoration: BoxDecoration(
               color: Colors.white,
               border: Border.all(
@@ -40,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                 Text('Sign in to save your favorite books',style: TextStyle(letterSpacing: 0,fontWeight: FontWeight.w400,color: Color(0xFF6D6159)),),
                 SizedBox(height: 20),
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 16),
+                  margin: EdgeInsets.symmetric(horizontal: 10),
                   child: Column(
                     spacing: 10,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,14 +78,24 @@ class _LoginPageState extends State<LoginPage> {
                       InputField(
                         fieldName: 'Email', 
                         hintText: 'you@example.com',
-                        controller: TextEditingController()
+                        controller: _emailController
                       ),
                       InputField(
                         fieldName: 'Password', 
                         hintText: '•••••••', 
-                        controller: TextEditingController()),
+                        controller: _passwordController),
                       TextButton(
-                        onPressed: (){}, 
+                        onPressed: (){
+                          _signUp ?
+                           _viewModel.signUpUser(
+                             _emailController.text, 
+                             _passwordController.text, 
+                             context)
+                             : _viewModel.login(
+                              _emailController.text, 
+                              _passwordController.text, 
+                              context);
+                        }, 
                         child: Text(_signUp ? 'Sign Up' :'Sign In'),
                         style: TextButton.styleFrom(
                           foregroundColor: Colors.white,

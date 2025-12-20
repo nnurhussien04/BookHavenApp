@@ -51,7 +51,7 @@ class Homepage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          height: 260,
+                          height: 250,
                           width: double.infinity,
                           child: Image.network(
                             fit: BoxFit.fill,
