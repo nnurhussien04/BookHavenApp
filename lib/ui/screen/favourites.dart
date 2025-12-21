@@ -30,9 +30,10 @@ class _FavouritePageState extends State<FavouritePage> {
           Container(
             padding: EdgeInsets.fromLTRB(20,10,8,8),
             child: Column(
-              spacing: 10,
+              spacing: 5,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(height: 10),
                 Text('My Favorites',style: Theme.of(context).textTheme.headlineLarge),
                 Text('My personal collection of favorite books')
               ],

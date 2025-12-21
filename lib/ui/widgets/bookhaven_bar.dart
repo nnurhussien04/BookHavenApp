@@ -1,8 +1,14 @@
+import 'package:bookhaven/provider/user_provider.dart';
 import 'package:bookhaven/ui/screen/browse_page.dart';
+import 'package:bookhaven/ui/screen/favourites.dart';
 import 'package:bookhaven/ui/screen/homepage.dart';
 import 'package:bookhaven/ui/screen/login.dart';
+import 'package:bookhaven/viewmodel/login_viewmodel.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
+
+import 'package:provider/provider.dart';
 
 class BookhavenBar extends StatefulWidget implements PreferredSizeWidget{
   @override
@@ -18,8 +24,10 @@ class BookhavenBar extends StatefulWidget implements PreferredSizeWidget{
 }
 
 class _BookhavenBarState extends State<BookhavenBar>{
+  LoginViewModel loginViewModel = LoginViewModel();
   @override
   Widget build(BuildContext context) {
+    final _userProvider = context.watch<UserProvider>();
     // TODO: implement build
     return AppBar(
       automaticallyImplyLeading: false,
@@ -59,8 +67,10 @@ class _BookhavenBarState extends State<BookhavenBar>{
                 child: Text('Browse'),
               ),
               SizedBox(width: 5),
+              !_userProvider.loggedIn! ?
               TextButton.icon(
                 onPressed: (){
+                  print(_userProvider.loggedIn);
                   Navigator.of(context).pop();
                   Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => LoginPage()));
                 }, 
@@ -70,7 +80,26 @@ class _BookhavenBarState extends State<BookhavenBar>{
                   //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
                 ),
                 icon: Icon(Icons.person_outlined),
-                label: Text('Sign In')),
+                label: Text('Sign In'))
+              : Row(
+                children: [
+                  IconButton(
+                    color: Colors.black,
+                    onPressed: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => FavouritePage()));
+                    },
+                    icon: Icon(Icons.favorite_border)
+                  ),
+                  IconButton(
+                    color: Colors.black,
+                    onPressed: (){
+                      loginViewModel.logout(context);
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => LoginPage()));
+                    }, 
+                    icon: Icon(Icons.logout)
+                  )
+                ],
+              ) 
             ],
           ),
         )

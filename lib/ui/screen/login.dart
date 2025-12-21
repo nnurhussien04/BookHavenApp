@@ -83,7 +83,9 @@ class _LoginPageState extends State<LoginPage> {
                       InputField(
                         fieldName: 'Password', 
                         hintText: '•••••••', 
-                        controller: _passwordController),
+                        controller: _passwordController,
+                        passwordInput: true,
+                        ),
                       TextButton(
                         onPressed: (){
                           _signUp ?

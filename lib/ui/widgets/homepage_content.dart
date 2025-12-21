@@ -1,7 +1,10 @@
+import 'package:bookhaven/provider/user_provider.dart';
 import 'package:bookhaven/ui/screen/browse_page.dart';
 import 'package:bookhaven/ui/screen/login.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
+
+import 'package:provider/provider.dart';
 
 class HomepageContent extends StatelessWidget {
   const HomepageContent({
@@ -10,6 +13,7 @@ class HomepageContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userProvider = context.watch<UserProvider>();
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -54,13 +58,15 @@ class HomepageContent extends StatelessWidget {
             minimumSize: Size(double.infinity,40)
           ),
         ),
-        TextButton(
-          onPressed: (){            
-            Navigator.of(context).pop();
-            Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => LoginPage()));
-          },
-          style: TextButton.styleFrom(minimumSize: Size(double.infinity,40)),
-          child: Text('Get Started'))
+        if(!userProvider.loggedIn!)
+          TextButton(
+            onPressed: (){            
+              Navigator.of(context).pop();
+              Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => LoginPage()));
+            },
+            style: TextButton.styleFrom(minimumSize: Size(double.infinity,40)),
+            child: Text('Get Started')
+          )
       ],
     );
   }
