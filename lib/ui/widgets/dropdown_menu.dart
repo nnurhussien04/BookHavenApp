@@ -1,9 +1,20 @@
+import 'package:bookhaven/viewmodel/book_viewmodel.dart';
 import 'package:flutter/material.dart';
 
+
+
+
 class FilterDropDown extends StatelessWidget {
-  const FilterDropDown({
+  FilterDropDown({
     super.key,
+    required this.value,
+    this.selectedValue
   });
+
+  final Function(dynamic value) value;
+  String? selectedValue;
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +24,7 @@ class FilterDropDown extends StatelessWidget {
         letterSpacing: 0,
         fontWeight: FontWeight.w500
       ),
-      initialSelection: 'All Categories',
+      initialSelection: selectedValue ?? 'All Categories',
       trailingIcon: Center(child: Icon(Icons.keyboard_arrow_down,size: 20,color: Colors.grey)),
       inputDecorationTheme: InputDecorationTheme(
         suffixIconConstraints: BoxConstraints.tightFor(width: 50,height: 120),
@@ -43,7 +54,8 @@ class FilterDropDown extends StatelessWidget {
       ),
       width: double.infinity,
       menuHeight: double.infinity,
-      dropdownMenuEntries: ['All Categories','Science Fiction','Classic Fiction','Fantasy','Romance','Fiction'].map((x) => DropdownMenuEntry(value: x, label: x)).toList()
+      dropdownMenuEntries: ['All Categories','Science Fiction','Classic Fiction','Fantasy','Romance','Fiction'].map((x) => DropdownMenuEntry(value: x, label: x)).toList(),
+      onSelected: value,
     );
   }
 }

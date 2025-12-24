@@ -3,6 +3,7 @@ import 'package:bookhaven/ui/screen/browse_page.dart';
 import 'package:bookhaven/ui/screen/favourites.dart';
 import 'package:bookhaven/ui/screen/homepage.dart';
 import 'package:bookhaven/ui/screen/login.dart';
+import 'package:bookhaven/viewmodel/book_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,7 +14,8 @@ class BookhavenApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (ctx) => UserProvider())
+        ChangeNotifierProvider(create: (ctx) => UserProvider()),
+        ChangeNotifierProvider(create: (ctx) => BookViewmodel())
       ],
       child: MaterialApp(
         home: Homepage(),
