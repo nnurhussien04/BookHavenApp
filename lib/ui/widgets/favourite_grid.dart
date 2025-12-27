@@ -9,15 +9,17 @@ class FavouritesGrid extends StatelessWidget {
     required this.imageURLs,
     required this.catalogue,
     this.selectedGenre,
+    this.homepage = false
   });
 
   final List<String> imageURLs;
   final Books catalogue;
   final String? selectedGenre;
   String? value;
+  bool homepage;
 
   genreCheck(){
-    print('SelectedGenre $selectedGenre');
+    //print('SelectedGenre $selectedGenre');
     switch(selectedGenre){
       case 'All Categories':
         value = null;
@@ -35,7 +37,7 @@ class FavouritesGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     genreCheck();
-    print("Value $value");
+    //print("Value $value");
     return GridView.builder(
     clipBehavior: Clip.hardEdge,
     padding: EdgeInsets.zero,
@@ -59,7 +61,7 @@ class FavouritesGrid extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: catalogue.books[index].authors!.length > 1 ? 210:260,
+              height: homepage ? 230 :(catalogue.books[index].authors!.length > 1 ? 210:260),
               width: double.infinity,
               child: Image.network(
                 fit: BoxFit.fill,

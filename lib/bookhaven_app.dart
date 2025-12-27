@@ -15,7 +15,7 @@ class BookhavenApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (ctx) => UserProvider()),
-        ChangeNotifierProvider(create: (ctx) => BookViewmodel())
+        ChangeNotifierProvider(create: (ctx) => BookViewModel())
       ],
       child: MaterialApp(
         home: Homepage(),

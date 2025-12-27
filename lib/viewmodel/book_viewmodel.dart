@@ -4,7 +4,7 @@ import 'package:bookhaven/model/books.dart';
 import 'package:bookhaven/service/book_service.dart';
 import 'package:flutter/material.dart';
 
-class BookViewmodel extends ChangeNotifier{
+class BookViewModel extends ChangeNotifier{
   BookService _bookService = BookService();
   bool isLoading = false;
 

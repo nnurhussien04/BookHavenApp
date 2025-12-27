@@ -18,7 +18,7 @@ class BrowsePage extends StatefulWidget {
 
 class _BrowsePageState extends State<BrowsePage> {
   Books? _content;
-  BookViewmodel? _bookViewModel;
+  BookViewModel? _bookViewModel;
   String? _selectedValue;
 
   Future<Books?> getBooks() async{
@@ -48,7 +48,7 @@ class _BrowsePageState extends State<BrowsePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _bookViewModel = context.read<BookViewmodel>();
+    _bookViewModel = context.read<BookViewModel>();
     try{
       getBooks();
     } catch(e){
@@ -60,9 +60,9 @@ class _BrowsePageState extends State<BrowsePage> {
 
   @override
   Widget build(BuildContext context) {
-    _bookViewModel = context.watch<BookViewmodel>();
+    _bookViewModel = context.watch<BookViewModel>();
     var imageURLs = List.generate(10, (i) => 'https://covers.openlibrary.org/b/id/240727-L.jpg');
-    if(_bookViewModel!.isLoading){
+    if(_bookViewModel!.isLoading || _content == null){
       return Scaffold(
         appBar: BookhavenBar(),
         body: Center(child: CircularProgressIndicator()),

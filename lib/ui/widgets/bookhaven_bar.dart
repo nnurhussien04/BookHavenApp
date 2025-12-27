@@ -70,7 +70,7 @@ class _BookhavenBarState extends State<BookhavenBar>{
               !_userProvider.loggedIn! ?
               TextButton.icon(
                 onPressed: (){
-                  print(_userProvider.loggedIn);
+                  //print(_userProvider.loggedIn);
                   Navigator.of(context).pop();
                   Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => LoginPage()));
                 }, 
