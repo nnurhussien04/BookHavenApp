@@ -12,15 +12,17 @@ class Books extends ChangeNotifier{
     List<dynamic> jsonBooks = json['books'];
 
      Rating? RatingCheck(dynamic json){
-      if(json!=null)
+      if(json!=null){
         if(json['rating']!=null){
-          Rating(average: (json['rating']['average'] ?? 0 as num).toDouble());
+          return Rating(average: (json['rating']['average'] ?? 0 as num).toDouble());
         }
         else{
           return null;
         }
-    else
+      }
+    else{
       return null;
+    }
     }
 
     List<String>? genreCheck(dynamic json){

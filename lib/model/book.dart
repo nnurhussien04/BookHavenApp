@@ -35,7 +35,7 @@ class Rating{
 
     factory Rating.fromJson(Map<String, dynamic> json) {
     return Rating(
-      average: (json['average'] as num).toDouble(),
+      average: (json['average'] as double),
     );
   }
 }
