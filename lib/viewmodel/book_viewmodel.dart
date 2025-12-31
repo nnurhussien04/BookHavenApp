@@ -22,7 +22,7 @@ class BookViewModel extends ChangeNotifier{
     return searched;
   }
 
-    Future<Books> searchGenre(String genre) async{
+  Future<Books> searchGenre(String genre) async{
     isLoading = true;
     notifyListeners();
     var searched = await _bookService.searchGenres(genre);
@@ -34,5 +34,13 @@ class BookViewModel extends ChangeNotifier{
     return searched;
   }
 
+  Future<Book> searchDetails(int id) async{
+    isLoading = true;
+    notifyListeners();
+    var searched = await _bookService.getBookDetails(id);
+    isLoading = false;
+    notifyListeners();
+    return searched;
+  }
 
 }

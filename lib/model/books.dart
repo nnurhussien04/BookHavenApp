@@ -38,6 +38,30 @@ class Books extends ChangeNotifier{
         return [];
       }
     }
+
+    String? descriptionCheck(dynamic json){
+      if(json['description']!=null){
+        return json['description'];
+      }else{
+        return null;
+      }
+    }
+
+    double? yearCheck(dynamic json){
+    if(json['publish_date']!=null){
+      return json['publish_date'] as double;
+    }else{
+      return null;
+    }
+    }
+
+    Identifier? identifierCheck(dynamic json){
+      if(json['identifiers']!=null){
+        return Identifier(openLibraryID: json['identifiers']['open_library_id'], isbn10: json['identifiers']['isbn_10'], isbn13: json['identifiers']['isbn_13']);
+      } else{
+        return null;
+      }
+    }
     
     List<Book> arrayBooks = [];
     for(dynamic book1 in jsonBooks){
@@ -53,7 +77,10 @@ class Books extends ChangeNotifier{
                 name: a['name'],
               ))
           .toList(), 
-          rating: RatingCheck(book1[0])
+          rating: RatingCheck(book1[0]),
+          description: descriptionCheck(book1[0]),
+          year:yearCheck(book1[0]),
+          identifier: identifierCheck(book1[0])
         )
       );
     }
