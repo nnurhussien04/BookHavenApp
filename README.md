@@ -1,16 +1,24 @@
-# bookhaven
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+#📚 BookHavenApp
+A cross-platform Flutter book app that lets users discover, explore, and manage their favourite books.
+##🚀 What I Built
+BookHavenApp allows users to:
+🔍 Search for books using a search tab
+🏷️ Browse books by genre
+👤 Create a user profile
+❤️ Add books to favourites
+🗑️ Remove books from favourites
+📖 View detailed book details, including:
+Description
+Rating
+ISBN number
+##🛠️ Tech Stack
+Flutter & Dart – cross-platform app development
+Firebase – user data & favourites storage
+Firebase Authentication – user accounts
+##▶️ Getting Started
+git clone https://github.com/nnurhussien04/BookHavenApp.git
+cd BookHavenApp
+flutter pub get
+flutter run
+##⭐ Overview
+This project demonstrates full CRUD functionality, book discovery features, and Firebase integration within a scalable Flutter app.
