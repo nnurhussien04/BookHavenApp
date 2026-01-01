@@ -1,5 +1,7 @@
+import 'package:bookhaven/provider/favourites_provider.dart';
 import 'package:bookhaven/provider/user_provider.dart';
 import 'package:bookhaven/ui/screen/homepage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -50,6 +52,8 @@ class LoginViewModel {
     if(userCredentials != null){
       userProvider.loggedIn = true;
       userProvider.userCredential = userCredentials;
+      final favouriteProvider = context.read<FavouritesProvider>();
+      favouriteProvider.resetDispose();
       if(context.mounted){
         ScaffoldMessenger.of(context).clearSnackBars();
         Navigator.push(context, MaterialPageRoute(builder: (ctx) => Homepage()));
@@ -58,12 +62,16 @@ class LoginViewModel {
   }
 
   void logout(BuildContext context) async{
-    await _firebase.signOut();
+    final userProvider = context.read<UserProvider>();
     if(context.mounted){
-      final userProvider = context.read<UserProvider>();
       userProvider.userCredential = null;
       userProvider.loggedIn = false;
+      userProvider.notifyListeners();
+      final favouriteProvider = context.read<FavouritesProvider>();
+      favouriteProvider.clearFavourites();
+      favouriteProvider.cancelRequests();
     }
+    await _firebase.signOut();
   }
 
   
