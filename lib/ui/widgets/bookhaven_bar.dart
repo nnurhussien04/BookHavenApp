@@ -48,8 +48,7 @@ class _BookhavenBarState extends State<BookhavenBar>{
               ),
             ),
             onTap: () {
-              Navigator.of(context).pop();
-              Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => Homepage()));
+              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx) => Homepage()));
             },
           )
         ],
@@ -61,8 +60,7 @@ class _BookhavenBarState extends State<BookhavenBar>{
             children: [
               TextButton(
                 onPressed: (){
-                  Navigator.of(context).pop();
-                  Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => BrowsePage()));                      
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx) => BrowsePage()));                      
                 }, 
                 child: Text('Browse'),
               ),
@@ -71,8 +69,7 @@ class _BookhavenBarState extends State<BookhavenBar>{
               TextButton.icon(
                 onPressed: (){
                   //print(_userProvider.loggedIn);
-                  Navigator.of(context).pop();
-                  Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => LoginPage()));
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx) => LoginPage()));
                 }, 
                 style: TextButton.styleFrom(
                   backgroundColor: Color(0xFFF08D2D),
@@ -86,7 +83,8 @@ class _BookhavenBarState extends State<BookhavenBar>{
                   IconButton(
                     color: Colors.black,
                     onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (_) => FavouritePage()));
+                      if(_userProvider.userCredential != null)
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => FavouritePage()));
                     },
                     icon: Icon(Icons.favorite_border)
                   ),
@@ -94,7 +92,7 @@ class _BookhavenBarState extends State<BookhavenBar>{
                     color: Colors.black,
                     onPressed: (){
                       loginViewModel.logout(context);
-                      Navigator.push(context, MaterialPageRoute(builder: (_) => LoginPage()));
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => LoginPage()));
                     }, 
                     icon: Icon(Icons.logout)
                   )
