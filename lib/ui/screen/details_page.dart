@@ -1,5 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:bookhaven/model/book.dart';
+import 'package:bookhaven/provider/favourites_provider.dart';
+import 'package:bookhaven/provider/user_provider.dart';
 import 'package:bookhaven/ui/screen/browse_page.dart';
 import 'package:bookhaven/ui/shared/genre_values.dart';
 import 'package:bookhaven/ui/widgets/bookhaven_bar.dart';
@@ -48,6 +50,10 @@ class _DetailsPageState extends State<DetailsPage> {
   @override
   Widget build(BuildContext context) {
     _bookViewModel = context.watch<BookViewModel>();
+    final _userProvider = context.watch<UserProvider>();
+    final _favouritesProvider = context.watch<FavouritesProvider>();
+    bool contains = _favouritesProvider.favourites.where((x)=> x.title == widget.book.title).isNotEmpty;
+    bool loggedIn = _userProvider.userCredential!=null;
     String genre = 'genre';
     if(widget.book.genre!.isNotEmpty){
       genre = widget.book.genre!
@@ -86,7 +92,13 @@ class _DetailsPageState extends State<DetailsPage> {
                 children: [
                   Expanded(child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: FilledButton.icon(onPressed: (){}, label: Text('Add To Favourites',style: TextStyle(letterSpacing: -1,fontWeight: FontWeight.bold,fontSize: 12),), icon: Icon(Icons.favorite_outline),style: FilledButton.styleFrom(backgroundColor: Color(0xFFF08D2D),shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)))),
+                    child: FilledButton.icon(onPressed: (){ 
+                    if(!loggedIn){
+                      ScaffoldMessenger.of(context).clearSnackBars();
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('You must log in to store favourites')));
+                      return;
+                    } 
+                  contains ? _favouritesProvider.removeFavourites(widget.book) :_favouritesProvider.addFavourites(widget.book);}, label: Text(contains ? 'Remove From Favourites' :'Add To Favourites',style: TextStyle(letterSpacing: -1,fontWeight: FontWeight.bold,fontSize: 12,color: contains ? Colors.black : null),), icon: Icon(contains ? Icons.favorite :Icons.favorite_outline,color: contains ? Colors.red:null,),style: FilledButton.styleFrom(backgroundColor: contains ?Colors.white : Color(0xFFF08D2D),shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)))),
                   )),
                 ],
               ),
@@ -117,21 +129,22 @@ class _DetailsPageState extends State<DetailsPage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(book!.description ?? "",style: TextStyle(color: Color(0xFF7A6E63),fontSize: 18,fontWeight: FontWeight.w400,height: 1.45)),
-              ),
-              if(book?.identifier?.isbn13!=null)
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text('ISBN',style: Theme.of(context).textTheme.headlineSmall!.apply(
-                    fontSizeDelta: -8,
-    
-                  )),
                 ),
               if(book?.identifier?.isbn13!=null)
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: Text(book!.identifier!.isbn13.toString(),style: TextStyle(color: Colors.black54,fontSize: 16,letterSpacing: -1,fontWeight: FontWeight.w500)),
-                )
-
+                if(book!.identifier!.isbn13.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('ISBN',style: Theme.of(context).textTheme.headlineSmall!.apply(
+                      fontSizeDelta: -8,
+                      )
+                    ),
+                  ),
+              if(book?.identifier?.isbn13!=null)
+                if(book!.identifier!.isbn13.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Text(book!.identifier!.isbn13.toString(),style: TextStyle(color: Colors.black54,fontSize: 16,letterSpacing: -1,fontWeight: FontWeight.w500)),
+                  )
             ],
           ),
         ),
