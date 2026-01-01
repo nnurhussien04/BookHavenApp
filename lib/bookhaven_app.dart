@@ -1,3 +1,4 @@
+import 'package:bookhaven/provider/favourites_provider.dart';
 import 'package:bookhaven/provider/user_provider.dart';
 import 'package:bookhaven/ui/screen/browse_page.dart';
 import 'package:bookhaven/ui/screen/favourites.dart';
@@ -8,16 +9,21 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class BookhavenApp extends StatelessWidget {
-  const BookhavenApp({super.key});
+  BookhavenApp({super.key});
+
+  
 
   @override
   Widget build(BuildContext context) {
+    final favouriteProvider = FavouritesProvider();
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (ctx) => UserProvider()),
-        ChangeNotifierProvider(create: (ctx) => BookViewModel())
+        ChangeNotifierProvider(create: (ctx) => BookViewModel()),
+        ChangeNotifierProvider(create: (ctx) => favouriteProvider)
       ],
       child: MaterialApp(
+        navigatorObservers: [favouriteProvider.routeObserver],
         home: Homepage(),
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
